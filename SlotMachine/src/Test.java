@@ -1,13 +1,19 @@
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class Test {
+public class Test implements ActionListener, KeyListener{
 
 	private JFrame frmSlotMachine;
 
@@ -63,22 +69,45 @@ public class Test {
 		frmSlotMachine.getContentPane().add(label_2);
 		
 		JLabel button = new JLabel("");
-		button.addKeyListener(new KeyAdapter() 
-		{
-			@Override
-			public void keyPressed(KeyEvent e) 
-			{
-				if (e.getKeyCode()==KeyEvent.VK_ENTER)
-				{
-		            label.setVisible(false);
-		        }
-				
-			}
-		});
-		
 		Image bt = new ImageIcon(this.getClass().getResource("/button.gif")).getImage();
 		button.setIcon(new ImageIcon(bt)); 
 		button.setBounds(491, 514, 245, 186);
 		frmSlotMachine.getContentPane().add(button);
+		
+		
 	}
+
+	@Override
+	public void keyTyped(KeyEvent e) 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) 
+	{
+		if (e.getKeyCode()==KeyEvent.VK_ENTER)
+		{
+			System.out.println("Hello");
+		}
+		Component frame = new JFrame();
+		JOptionPane.showMessageDialog(frame , "You just hit the enter. ");		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+	
+
 }
