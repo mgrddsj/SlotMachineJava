@@ -16,20 +16,28 @@ import java.util.Random;
 
 import javax.swing.JButton;
 
-public class Test{
+public class Test
+{
 
 	private JFrame frmSlotMachine;
+	private int[][] board = new int[3][3];
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
+	public static void main(String[] args)
+	{
+		EventQueue.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+				try
+				{
 					Test window = new Test();
 					window.frmSlotMachine.setVisible(true);
-				} catch (Exception e) {
+				} 
+				catch (Exception e)
+				{
 					e.printStackTrace();
 				}
 			}
@@ -39,14 +47,16 @@ public class Test{
 	/**
 	 * Create the application.
 	 */
-	public Test() {
+	public Test()
+	{
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize()
+	{
 		frmSlotMachine = new JFrame();
 		frmSlotMachine.setTitle("Slot Machine");
 		frmSlotMachine.setBounds(100, 100, 1280, 728);
@@ -137,14 +147,17 @@ public class Test{
 		button.setBounds(491, 514, 245, 186);
 		frmSlotMachine.getContentPane().add(button);
 		
-				//Random rand = new Random();
-				
-				//Background img
-				JLabel Background = new JLabel("");
-				Background.setIcon(new ImageIcon(background));
-				Background.setBounds(0, 0, 1262, 681);
-				frmSlotMachine.getContentPane().add(Background);
-		
+		//Random rand = new Random();
 
+		//Background img
+		JLabel Background = new JLabel("");
+		Background.setIcon(new ImageIcon(background));
+		Background.setBounds(0, 0, 1262, 681);
+		frmSlotMachine.getContentPane().add(Background);
+	}
+	
+	private static void spin()
+	{
+		
 	}
 }
