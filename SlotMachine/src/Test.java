@@ -12,15 +12,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.JButton;
 
-public class Test
-{
+public class Test {
 
 	private JFrame frmSlotMachine;
 	private int[][] board = new int[3][3];
+	private static List<Image> images = new ArrayList<Image>(8);
 
 	/**
 	 * Launch the application.
@@ -73,7 +75,19 @@ public class Test
 		Image his = new ImageIcon(this.getClass().getResource("/history.png")).getImage();
 		Image math = new ImageIcon(this.getClass().getResource("/maths.png")).getImage();
 		Image physics = new ImageIcon(this.getClass().getResource("/physics.png")).getImage();
+
+		//Add images into list. 
+		images.add(background);
+		images.add(bio);
+		images.add(chem);
+		images.add(chinese);
+		images.add(cs);
+		images.add(eng);
+		images.add(his);
+		images.add(math);
+		images.add(physics);
 		
+		/*
 		String[] picNames = new String[8];//The equivalent number of the picture. 
 		picNames[0] = "bio";
 		picNames[1] = "chem";
@@ -83,6 +97,7 @@ public class Test
 		picNames[5] = "his";
 		picNames[6] = "math";
 		picNames[7] = "physics";
+		*/
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(cs));
@@ -158,6 +173,12 @@ public class Test
 	
 	private static void spin()
 	{
+		
+	}
+	
+	private static void rollUntil(int slot1,int slot2,int slot3)
+	{
+		Random rand = new Random();
 		
 	}
 }
