@@ -22,19 +22,9 @@ public class Test {
 
 	private JFrame frmSlotMachine;
 	private int[][] board = new int[3][3];
+	private static List<JLabel> slots = new ArrayList<JLabel>(3);
 	private static List<Image> images = new ArrayList<Image>(8);
 	private static JLabel label;
-
-	// Setup images that needed to be used.
-	public Image background = new ImageIcon(this.getClass().getResource("/NewNewSlotMachineBackground.jpg")).getImage();
-	public Image bio = new ImageIcon(this.getClass().getResource("/biology.png")).getImage();
-	public Image chem = new ImageIcon(this.getClass().getResource("/chemistry.png")).getImage();
-	public Image chinese = new ImageIcon(this.getClass().getResource("/chinese.png")).getImage();
-	public Image cs = new ImageIcon(this.getClass().getResource("/cs.png")).getImage();
-	public Image eng = new ImageIcon(this.getClass().getResource("/english.png")).getImage();
-	public Image his = new ImageIcon(this.getClass().getResource("/history.png")).getImage();
-	public Image math = new ImageIcon(this.getClass().getResource("/maths.png")).getImage();
-	public Image physics = new ImageIcon(this.getClass().getResource("/physics.png")).getImage();
 	
 	/**
 	 * Launch the application.
@@ -77,7 +67,16 @@ public class Test {
 		frmSlotMachine.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSlotMachine.getContentPane().setLayout(null);
 		
-
+		// Setup images that needed to be used.
+		Image background = new ImageIcon(this.getClass().getResource("/NewNewSlotMachineBackground.jpg")).getImage();
+		Image bio = new ImageIcon(this.getClass().getResource("/biology.png")).getImage();
+		Image chem = new ImageIcon(this.getClass().getResource("/chemistry.png")).getImage();
+		Image chinese = new ImageIcon(this.getClass().getResource("/chinese.png")).getImage();
+		Image cs = new ImageIcon(this.getClass().getResource("/cs.png")).getImage();
+		Image eng = new ImageIcon(this.getClass().getResource("/english.png")).getImage();
+		Image his = new ImageIcon(this.getClass().getResource("/history.png")).getImage();
+		Image math = new ImageIcon(this.getClass().getResource("/maths.png")).getImage();
+		Image physics = new ImageIcon(this.getClass().getResource("/physics.png")).getImage();
 
 		//Add images into list. 
 		images.add(background);
@@ -103,18 +102,21 @@ public class Test {
 		*/
 		
 		JLabel label = new JLabel("");
+		slots.add(label);
 		label.setIcon(new ImageIcon(images.get(4)));
-		label.setBounds(220, 308, 128, 128);
+		label.setBounds(228, 158, 128, 128);
 		frmSlotMachine.getContentPane().add(label);
 		
 		JLabel label_1 = new JLabel("");
+		slots.add(label_1);
 		label_1.setIcon(new ImageIcon(eng));
-		label_1.setBounds(220, 458, 128, 128);
+		label_1.setBounds(228, 308, 128, 128);
 		frmSlotMachine.getContentPane().add(label_1);
 		
 		JLabel label_2 = new JLabel("");
+		slots.add(label_2);
 		label_2.setIcon(new ImageIcon(his));
-		label_2.setBounds(220, 158, 128, 128);
+		label_2.setBounds(228, 458, 128, 128);
 		frmSlotMachine.getContentPane().add(label_2);
 		
 		JLabel label_3 = new JLabel("");
@@ -155,7 +157,8 @@ public class Test {
 			{
 				if (e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
-					label.setVisible(false);
+//					label.setVisible(false);
+//					replace(label, 1);
 					System.out.println("Key pressed! ");
 					rollUntil(1, 1, 1);
 				}
@@ -180,7 +183,7 @@ public class Test {
 		
 	}
 	
-	private static void rollUntil(int slot1,int slot2,int slot3)
+	private void rollUntil(int slot1,int slot2,int slot3)
 	{
 		Random rand = new Random();
 		
@@ -195,11 +198,33 @@ public class Test {
 //		images.add(math);
 //		images.add(physics);
 		
-		label.setIcon(new ImageIcon());
+		replace(slots.get(1),1);
 	}
 	
-	private void replace(int[][] board,int pic)
+	private void replace(JLabel label,int pic)
 	{
+		// Setup images that needed to be used.
+		Image background = new ImageIcon(this.getClass().getResource("/NewNewSlotMachineBackground.jpg")).getImage();
+		Image bio = new ImageIcon(this.getClass().getResource("/biology.png")).getImage();
+		Image chem = new ImageIcon(this.getClass().getResource("/chemistry.png")).getImage();
+		Image chinese = new ImageIcon(this.getClass().getResource("/chinese.png")).getImage();
+		Image cs = new ImageIcon(this.getClass().getResource("/cs.png")).getImage();
+		Image eng = new ImageIcon(this.getClass().getResource("/english.png")).getImage();
+		Image his = new ImageIcon(this.getClass().getResource("/history.png")).getImage();
+		Image math = new ImageIcon(this.getClass().getResource("/maths.png")).getImage();
+		Image physics = new ImageIcon(this.getClass().getResource("/physics.png")).getImage();
 		
+		//Add images into list. 
+		images.add(background);
+		images.add(bio);
+		images.add(chem);
+		images.add(chinese);
+		images.add(cs);
+		images.add(eng);
+		images.add(his);
+		images.add(math);
+		images.add(physics);
+		
+		label.setIcon(new ImageIcon(images.get(pic)));
 	}
 }
