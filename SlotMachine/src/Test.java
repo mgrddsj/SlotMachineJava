@@ -23,7 +23,19 @@ public class Test {
 	private JFrame frmSlotMachine;
 	private int[][] board = new int[3][3];
 	private static List<Image> images = new ArrayList<Image>(8);
+	private static JLabel label;
 
+	// Setup images that needed to be used.
+	public Image background = new ImageIcon(this.getClass().getResource("/NewNewSlotMachineBackground.jpg")).getImage();
+	public Image bio = new ImageIcon(this.getClass().getResource("/biology.png")).getImage();
+	public Image chem = new ImageIcon(this.getClass().getResource("/chemistry.png")).getImage();
+	public Image chinese = new ImageIcon(this.getClass().getResource("/chinese.png")).getImage();
+	public Image cs = new ImageIcon(this.getClass().getResource("/cs.png")).getImage();
+	public Image eng = new ImageIcon(this.getClass().getResource("/english.png")).getImage();
+	public Image his = new ImageIcon(this.getClass().getResource("/history.png")).getImage();
+	public Image math = new ImageIcon(this.getClass().getResource("/maths.png")).getImage();
+	public Image physics = new ImageIcon(this.getClass().getResource("/physics.png")).getImage();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -61,20 +73,11 @@ public class Test {
 	{
 		frmSlotMachine = new JFrame();
 		frmSlotMachine.setTitle("Slot Machine");
-		frmSlotMachine.setBounds(100, 100, 1280, 728);
+		frmSlotMachine.setBounds(100, 100, 1366, 768);
 		frmSlotMachine.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSlotMachine.getContentPane().setLayout(null);
 		
-		//Setup images that needed to be used. 
-		Image background = new ImageIcon(this.getClass().getResource("/NewSlotMachineBackground.jpg")).getImage();
-		Image bio = new ImageIcon(this.getClass().getResource("/biology.png")).getImage();
-		Image chem = new ImageIcon(this.getClass().getResource("/chemistry.png")).getImage();
-		Image chinese = new ImageIcon(this.getClass().getResource("/chinese.png")).getImage();
-		Image cs = new ImageIcon(this.getClass().getResource("/cs.png")).getImage();
-		Image eng = new ImageIcon(this.getClass().getResource("/english.png")).getImage();
-		Image his = new ImageIcon(this.getClass().getResource("/history.png")).getImage();
-		Image math = new ImageIcon(this.getClass().getResource("/maths.png")).getImage();
-		Image physics = new ImageIcon(this.getClass().getResource("/physics.png")).getImage();
+
 
 		//Add images into list. 
 		images.add(background);
@@ -100,48 +103,48 @@ public class Test {
 		*/
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(cs));
-		label.setBounds(205, 275, 128, 128);
+		label.setIcon(new ImageIcon(images.get(4)));
+		label.setBounds(220, 308, 128, 128);
 		frmSlotMachine.getContentPane().add(label);
 		
 		JLabel label_1 = new JLabel("");
 		label_1.setIcon(new ImageIcon(eng));
-		label_1.setBounds(205, 425, 128, 128);
+		label_1.setBounds(220, 458, 128, 128);
 		frmSlotMachine.getContentPane().add(label_1);
 		
 		JLabel label_2 = new JLabel("");
 		label_2.setIcon(new ImageIcon(his));
-		label_2.setBounds(205, 125, 128, 128);
+		label_2.setBounds(220, 158, 128, 128);
 		frmSlotMachine.getContentPane().add(label_2);
 		
 		JLabel label_3 = new JLabel("");
 		label_3.setIcon(new ImageIcon(bio));
-		label_3.setBounds(576, 125, 128, 128);
+		label_3.setBounds(623, 158, 128, 128);
 		frmSlotMachine.getContentPane().add(label_3);
 		
 		JLabel label_4 = new JLabel("");
 		label_4.setIcon(new ImageIcon(chem));
-		label_4.setBounds(576, 275, 128, 128);
+		label_4.setBounds(623, 308, 128, 128);
 		frmSlotMachine.getContentPane().add(label_4);
 		
 		JLabel label_5 = new JLabel("");
 		label_5.setIcon(new ImageIcon(chinese));
-		label_5.setBounds(576, 425, 128, 128);
+		label_5.setBounds(623, 458, 128, 128);
 		frmSlotMachine.getContentPane().add(label_5);
 		
 		JLabel label_6 = new JLabel("");
 		label_6.setIcon(new ImageIcon(physics));
-		label_6.setBounds(949, 125, 128, 128);
+		label_6.setBounds(1013, 158, 128, 128);
 		frmSlotMachine.getContentPane().add(label_6);
 		
 		JLabel label_7 = new JLabel("");
 		label_7.setIcon(new ImageIcon(math));
-		label_7.setBounds(949, 275, 128, 128);
+		label_7.setBounds(1013, 308, 128, 128);
 		frmSlotMachine.getContentPane().add(label_7);
 		
 		JLabel label_8 = new JLabel("");
 		label_8.setIcon(new ImageIcon(physics));
-		label_8.setBounds(949, 425, 128, 128);
+		label_8.setBounds(1013, 458, 128, 128);
 		frmSlotMachine.getContentPane().add(label_8);
 		
 		JButton button = new JButton("");
@@ -154,12 +157,13 @@ public class Test {
 				{
 					label.setVisible(false);
 					System.out.println("Key pressed! ");
+					rollUntil(1, 1, 1);
 				}
 			}
 		});
 		Image bt = new ImageIcon(this.getClass().getResource("/button.gif")).getImage();
 		button.setIcon(new ImageIcon(bt));
-		button.setBounds(491, 514, 245, 186);
+		button.setBounds(533, 576, 245, 170);
 		frmSlotMachine.getContentPane().add(button);
 		
 		//Random rand = new Random();
@@ -167,7 +171,7 @@ public class Test {
 		//Background img
 		JLabel Background = new JLabel("");
 		Background.setIcon(new ImageIcon(background));
-		Background.setBounds(0, 0, 1262, 681);
+		Background.setBounds(0, 0, 1366, 746);
 		frmSlotMachine.getContentPane().add(Background);
 	}
 	
@@ -179,6 +183,23 @@ public class Test {
 	private static void rollUntil(int slot1,int slot2,int slot3)
 	{
 		Random rand = new Random();
+		
+		//Add images into list. 
+//		images.add(background);
+//		images.add(bio);
+//		images.add(chem);
+//		images.add(chinese);
+//		images.add(cs);
+//		images.add(eng);
+//		images.add(his);
+//		images.add(math);
+//		images.add(physics);
+		
+		label.setIcon(new ImageIcon());
+	}
+	
+	private void replace(int[][] board,int pic)
+	{
 		
 	}
 }
