@@ -22,7 +22,9 @@ public class Test {
 
 	private JFrame frmSlotMachine;
 	private int[][] board = new int[3][3];
-	private static List<JLabel> slots = new ArrayList<JLabel>(3);
+	private static List<JLabel> slot1 = new ArrayList<JLabel>(3);
+	private static List<JLabel> slot2 = new ArrayList<JLabel>(3);
+	private static List<JLabel> slot3 = new ArrayList<JLabel>(3);
 	private static List<Image> images = new ArrayList<Image>(8);
 	private static JLabel label;
 	
@@ -67,6 +69,11 @@ public class Test {
 		frmSlotMachine.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSlotMachine.getContentPane().setLayout(null);
 		
+		//The following 3 lines is for full screen. 
+//		frmSlotMachine.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//		frmSlotMachine.setUndecorated(true);
+//		frmSlotMachine.setVisible(true);
+		
 		// Setup images that needed to be used.
 		Image background = new ImageIcon(this.getClass().getResource("/NewNewSlotMachineBackground.jpg")).getImage();
 		Image bio = new ImageIcon(this.getClass().getResource("/biology.png")).getImage();
@@ -101,51 +108,70 @@ public class Test {
 		picNames[7] = "physics";
 		*/
 		
+		//Put initial state of each slot into 2D array "board", so that "replace()" can get the present state of the slots. 
+		//board[vertical slot][position in vertical slot]
+		board[0][0] = 0;
+		board[0][1] = 1;
+		board[0][2] = 2;
+		board[1][0] = 3;
+		board[1][1] = 4;
+		board[1][2] = 5;
+		board[2][0] = 6;
+		board[2][1] = 7;
+		board[2][2] = 1;
+		
+		
 		JLabel label = new JLabel("");
-		slots.add(label);
-		label.setIcon(new ImageIcon(images.get(4)));
+		slot1.add(label);
+		label.setIcon(new ImageIcon(images.get(0)));
 		label.setBounds(228, 158, 128, 128);
 		frmSlotMachine.getContentPane().add(label);
 		
 		JLabel label_1 = new JLabel("");
-		slots.add(label_1);
-		label_1.setIcon(new ImageIcon(eng));
+		slot1.add(label_1);
+		label_1.setIcon(new ImageIcon(images.get(1)));
 		label_1.setBounds(228, 308, 128, 128);
 		frmSlotMachine.getContentPane().add(label_1);
 		
 		JLabel label_2 = new JLabel("");
-		slots.add(label_2);
-		label_2.setIcon(new ImageIcon(his));
+		slot1.add(label_2);
+		label_2.setIcon(new ImageIcon(images.get(2)));
 		label_2.setBounds(228, 458, 128, 128);
 		frmSlotMachine.getContentPane().add(label_2);
 		
 		JLabel label_3 = new JLabel("");
-		label_3.setIcon(new ImageIcon(bio));
+		slot2.add(label_3);
+		label_3.setIcon(new ImageIcon(images.get(3)));
 		label_3.setBounds(623, 158, 128, 128);
 		frmSlotMachine.getContentPane().add(label_3);
 		
 		JLabel label_4 = new JLabel("");
-		label_4.setIcon(new ImageIcon(chem));
+		slot2.add(label_4);
+		label_4.setIcon(new ImageIcon(images.get(4)));
 		label_4.setBounds(623, 308, 128, 128);
 		frmSlotMachine.getContentPane().add(label_4);
 		
 		JLabel label_5 = new JLabel("");
-		label_5.setIcon(new ImageIcon(chinese));
+		slot2.add(label_5);
+		label_5.setIcon(new ImageIcon(images.get(5)));
 		label_5.setBounds(623, 458, 128, 128);
 		frmSlotMachine.getContentPane().add(label_5);
 		
 		JLabel label_6 = new JLabel("");
-		label_6.setIcon(new ImageIcon(physics));
+		slot3.add(label_6);
+		label_6.setIcon(new ImageIcon(images.get(6)));
 		label_6.setBounds(1013, 158, 128, 128);
 		frmSlotMachine.getContentPane().add(label_6);
 		
 		JLabel label_7 = new JLabel("");
-		label_7.setIcon(new ImageIcon(math));
+		slot3.add(label_7);
+		label_7.setIcon(new ImageIcon(images.get(7)));
 		label_7.setBounds(1013, 308, 128, 128);
 		frmSlotMachine.getContentPane().add(label_7);
 		
 		JLabel label_8 = new JLabel("");
-		label_8.setIcon(new ImageIcon(physics));
+		slot3.add(label_8);
+		label_8.setIcon(new ImageIcon(images.get(1)));
 		label_8.setBounds(1013, 458, 128, 128);
 		frmSlotMachine.getContentPane().add(label_8);
 		
@@ -160,7 +186,7 @@ public class Test {
 //					label.setVisible(false);
 //					replace(label, 1);
 					System.out.println("Key pressed! ");
-					rollUntil(1, 1, 1);
+					rollUntil();
 				}
 			}
 		});
@@ -183,22 +209,13 @@ public class Test {
 		
 	}
 	
-	private void rollUntil(int slot1,int slot2,int slot3)
+	private void rollUntil()
 	{
 		Random rand = new Random();
 		
-		//Add images into list. 
-//		images.add(background);
-//		images.add(bio);
-//		images.add(chem);
-//		images.add(chinese);
-//		images.add(cs);
-//		images.add(eng);
-//		images.add(his);
-//		images.add(math);
-//		images.add(physics);
 		
-		replace(slots.get(1),1);
+		
+		replace(slot1.get(1),1);
 	}
 	
 	private void replace(JLabel label,int pic)
