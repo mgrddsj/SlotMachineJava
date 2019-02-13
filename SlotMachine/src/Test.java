@@ -15,17 +15,18 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
 
 public class Test {
 
 	private JFrame frmSlotMachine;
-	private int[][] board = new int[3][3];
-	private static List<JLabel> slot1 = new ArrayList<JLabel>(3);
-	private static List<JLabel> slot2 = new ArrayList<JLabel>(3);
-	private static List<JLabel> slot3 = new ArrayList<JLabel>(3);
-	private static List<Image> images = new ArrayList<Image>(8);
+	public static int[][] board = new int[3][3];
+	public static List<JLabel> slot1 = new ArrayList<JLabel>(3);
+	public static List<JLabel> slot2 = new ArrayList<JLabel>(3);
+	public static List<JLabel> slot3 = new ArrayList<JLabel>(3);
+	public static List<Image> images = new ArrayList<Image>(8);
 	private static JLabel label;
 	
 	/**
@@ -303,7 +304,9 @@ public class Test {
 				slot3Stop = true;
 			}
 
-//			Thread.sleep(100);
+			Thread.sleep(100);
+			// TimeUnit.MILLISECONDS.sleep(100);
+			// wait(100);
 
 		}
 	}
@@ -360,5 +363,107 @@ public class Test {
 
 class Spin extends Thread
 {
+	public void rollUntil(int slot1Res,int slot2Res,int slot3Res) throws InterruptedException
+	{
+		Random rand = new Random();
+		boolean slot1Stop = false;
+		boolean slot2Stop = false;
+		boolean slot3Stop = false;
+
+		//Roll up
+		while (!slot1Stop || !slot2Stop || !slot3Stop)
+		{
+			int temp1 = rand.nextInt(7);
+			int temp2 = rand.nextInt(7);
+			int temp3 = rand.nextInt(7);
+
+			if (!slot1Stop)
+			{
+				replace(Test.slot1.get(0), Test.board[0][1]);
+				replace(Test.slot1.get(1), Test.board[0][2]);
+				replace(Test.slot1.get(2), temp1);
+			}	
+			if (!slot2Stop)
+			{
+				replace(Test.slot2.get(0), Test.board[1][1]);
+				replace(Test.slot2.get(1), Test.board[1][2]);
+				replace(Test.slot2.get(2), temp2);
+			}
+			if (!slot3Stop)
+			{
+				replace(Test.slot3.get(0), Test.board[2][1]);
+				replace(Test.slot3.get(1), Test.board[2][2]);
+				replace(Test.slot3.get(2), temp3);
+			}
+			
+			updateboard(temp1, temp2, temp3, slot1Stop, slot2Stop, slot3Stop);
+
+			if (Test.board[0][1] == slot1Res)
+			{
+				slot1Stop = true;
+			}
+			if (Test.board[1][1] == slot2Res && slot1Stop == true)
+			{
+				slot2Stop = true;
+			}
+			if (Test.board[2][1] == slot3Res && slot2Stop == true)
+			{
+				slot3Stop = true;
+			}
+
+//			Thread.sleep(100);
+			// TimeUnit.MILLISECONDS.sleep(100);
+			// wait(100);
+
+		}
+	}
+
+	private void updateboard(int new1,int new2,int new3,boolean slot1,boolean slot2,boolean slot3)
+	{
+		if (!slot1)
+		{
+			Test.board[0][0] = Test.board[0][1];
+			Test.board[0][1] = Test.board[0][2];
+			Test.board[0][2] = new1;
+		}
+		if (!slot2)
+		{
+			Test.board[1][0] = Test.board[1][1];
+			Test.board[1][1] = Test.board[1][2];
+			Test.board[1][2] = new2;
+		}
+		if (!slot3)
+		{
+			Test.board[2][0] = Test.board[2][1];
+			Test.board[2][1] = Test.board[2][2];
+			Test.board[2][2] = new3;
+		}
+	}
 	
+	private void replace(JLabel label,int pic)
+	{
+		// Setup images that needed to be used.
+		Image background = new ImageIcon(this.getClass().getResource("/NewNewSlotMachineBackground.jpg")).getImage();
+		Image bio = new ImageIcon(this.getClass().getResource("/biology.png")).getImage();
+		Image chem = new ImageIcon(this.getClass().getResource("/chemistry.png")).getImage();
+		Image chinese = new ImageIcon(this.getClass().getResource("/chinese.png")).getImage();
+		Image cs = new ImageIcon(this.getClass().getResource("/cs.png")).getImage();
+		Image eng = new ImageIcon(this.getClass().getResource("/english.png")).getImage();
+		Image his = new ImageIcon(this.getClass().getResource("/history.png")).getImage();
+		Image math = new ImageIcon(this.getClass().getResource("/maths.png")).getImage();
+		Image physics = new ImageIcon(this.getClass().getResource("/physics.png")).getImage();
+		
+		//Add images into list. 
+		Test.images.add(background);
+		Test.images.add(bio);
+		Test.images.add(chem);
+		Test.images.add(chinese);
+		Test.images.add(cs);
+		Test.images.add(eng);
+		Test.images.add(his);
+		Test.images.add(math);
+		Test.images.add(physics);
+		
+		label.setIcon(new ImageIcon(Test.images.get(pic)));
+	}
 }
