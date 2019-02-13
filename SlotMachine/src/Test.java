@@ -86,7 +86,7 @@ public class Test {
 		Image physics = new ImageIcon(this.getClass().getResource("/physics.png")).getImage();
 
 		//Add images into list. 
-		images.add(background);
+//		images.add(background);
 		images.add(bio);
 		images.add(chem);
 		images.add(chinese);
@@ -186,7 +186,12 @@ public class Test {
 //					label.setVisible(false);
 //					replace(label, 1);
 					System.out.println("Key pressed! ");
-					rollUntil();
+					try {
+						spin();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
@@ -200,22 +205,129 @@ public class Test {
 		//Background img
 		JLabel Background = new JLabel("");
 		Background.setIcon(new ImageIcon(background));
-		Background.setBounds(0, 0, 1366, 746);
+		Background.setBounds(0, 0, 1366, 768);
 		frmSlotMachine.getContentPane().add(Background);
 	}
 	
-	private static void spin()
-	{
-		
-	}
-	
-	private void rollUntil()
+	private void spin() throws InterruptedException
 	{
 		Random rand = new Random();
+		int resultType;
+		int slot1Res;
+		int slot2Res;
+		int slot3Res;
 		
+		//Decide result type (All 3 same/2 are same/all different)
+		resultType = rand.nextInt(10);
+		if (resultType <= 2)
+		{
+			resultType = 0;//All same. 20%
+		}
+		else if (resultType <= 5)
+		{
+			resultType = 1;//2 same. 30%
+		}
+		else
+		{
+			resultType = 2;//All diff. 50%
+		}
+
+		slot1Res = rand.nextInt(7);//slot 1 result
+		//slot 2 result
+		if (resultType <= 1)
+		{
+			slot2Res = slot1Res;
+		}
+		else
+		{
+			slot2Res = rand.nextInt(7);
+		}
+		//slot 3 result
+		if (resultType == 0)
+		{
+			slot3Res = slot1Res;
+		}
+		else 
+		{
+			slot3Res = rand.nextInt(7);
+		}
 		
-		
-		replace(slot1.get(1),1);
+		rollUntil(slot1Res,slot2Res,slot3Res);
+	}
+	
+	private void rollUntil(int slot1Res,int slot2Res,int slot3Res) throws InterruptedException
+	{
+		Random rand = new Random();
+		boolean slot1Stop = false;
+		boolean slot2Stop = false;
+		boolean slot3Stop = false;
+
+		//Roll up
+		while (!slot1Stop || !slot2Stop || !slot3Stop)
+		{
+			int temp1 = rand.nextInt(7);
+			int temp2 = rand.nextInt(7);
+			int temp3 = rand.nextInt(7);
+
+			if (!slot1Stop)
+			{
+				replace(slot1.get(0), board[0][1]);
+				replace(slot1.get(1), board[0][2]);
+				replace(slot1.get(2), temp1);
+			}	
+			if (!slot2Stop)
+			{
+				replace(slot2.get(0), board[1][1]);
+				replace(slot2.get(1), board[1][2]);
+				replace(slot2.get(2), temp2);
+			}
+			if (!slot3Stop)
+			{
+				replace(slot3.get(0), board[2][1]);
+				replace(slot3.get(1), board[2][2]);
+				replace(slot3.get(2), temp3);
+			}
+			
+			updateBoard(temp1, temp2, temp3, slot1Stop, slot2Stop, slot3Stop);
+
+			if (board[0][1] == slot1Res)
+			{
+				slot1Stop = true;
+			}
+			if (board[1][1] == slot2Res && slot1Stop == true)
+			{
+				slot2Stop = true;
+			}
+			if (board[2][1] == slot3Res && slot2Stop == true)
+			{
+				slot3Stop = true;
+			}
+
+//			Thread.sleep(100);
+
+		}
+	}
+
+	private void updateBoard(int new1,int new2,int new3,boolean slot1,boolean slot2,boolean slot3)
+	{
+		if (!slot1)
+		{
+			board[0][0] = board[0][1];
+			board[0][1] = board[0][2];
+			board[0][2] = new1;
+		}
+		if (!slot2)
+		{
+			board[1][0] = board[1][1];
+			board[1][1] = board[1][2];
+			board[1][2] = new2;
+		}
+		if (!slot3)
+		{
+			board[2][0] = board[2][1];
+			board[2][1] = board[2][2];
+			board[2][2] = new3;
+		}
 	}
 	
 	private void replace(JLabel label,int pic)
@@ -244,4 +356,9 @@ public class Test {
 		
 		label.setIcon(new ImageIcon(images.get(pic)));
 	}
+}
+
+class Spin extends Thread
+{
+	
 }
