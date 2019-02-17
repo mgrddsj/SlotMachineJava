@@ -253,7 +253,8 @@ public class Test {
 			slot3Res = rand.nextInt(7);
 		}
 		
-		rollUntil(slot1Res,slot2Res,slot3Res);
+		Thread t1 = new Thread(new Spin(board,slot1Res,slot2Res,slot3Res));
+		t1.start();
 	}
 	
 	private void rollUntil(int slot1Res,int slot2Res,int slot3Res) throws InterruptedException
@@ -304,7 +305,7 @@ public class Test {
 				slot3Stop = true;
 			}
 
-			Thread.sleep(100);
+			Thread.sleep(1000);
 			// TimeUnit.MILLISECONDS.sleep(100);
 			// wait(100);
 
@@ -361,9 +362,32 @@ public class Test {
 	}
 }
 
-class Spin extends Thread
+class Spin implements Runnable
 {
-	public void rollUntil(int slot1Res,int slot2Res,int slot3Res) throws InterruptedException
+	private int[][] board = new int[3][3];
+	private int slot1Res;
+	private int slot2Res;
+	private int slot3Res;
+	
+	public Spin(int[][] b,int slt1Res,int slt2Res,int slt3Res)
+	{
+		board = b;
+//		board[0][0] = 0;
+//		board[0][1] = 1;
+//		board[0][2] = 2;
+//		board[1][0] = 3;
+//		board[1][1] = 4;
+//		board[1][2] = 5;
+//		board[2][0] = 6;
+//		board[2][1] = 7;
+//		board[2][2] = 1;
+		slot1Res = slt1Res;
+		slot2Res = slt2Res;
+		slot3Res = slt3Res;
+		
+	}
+
+	public void run()
 	{
 		Random rand = new Random();
 		boolean slot1Stop = false;
@@ -411,7 +435,12 @@ class Spin extends Thread
 				slot3Stop = true;
 			}
 
-//			Thread.sleep(100);
+			try {
+				Thread.sleep(150);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			// TimeUnit.MILLISECONDS.sleep(100);
 			// wait(100);
 
@@ -422,21 +451,21 @@ class Spin extends Thread
 	{
 		if (!slot1)
 		{
-			Test.board[0][0] = Test.board[0][1];
-			Test.board[0][1] = Test.board[0][2];
-			Test.board[0][2] = new1;
+			board[0][0] = board[0][1];
+			board[0][1] = board[0][2];
+			board[0][2] = new1;
 		}
 		if (!slot2)
 		{
-			Test.board[1][0] = Test.board[1][1];
-			Test.board[1][1] = Test.board[1][2];
-			Test.board[1][2] = new2;
+			board[1][0] = board[1][1];
+			board[1][1] = board[1][2];
+			board[1][2] = new2;
 		}
 		if (!slot3)
 		{
-			Test.board[2][0] = Test.board[2][1];
-			Test.board[2][1] = Test.board[2][2];
-			Test.board[2][2] = new3;
+			board[2][0] = board[2][1];
+			board[2][1] = board[2][2];
+			board[2][2] = new3;
 		}
 	}
 	
@@ -466,4 +495,5 @@ class Spin extends Thread
 		
 		label.setIcon(new ImageIcon(Test.images.get(pic)));
 	}
+
 }
