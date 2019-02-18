@@ -1,22 +1,13 @@
-import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Image;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
-
 import javax.swing.JButton;
 
 public class Test {
@@ -27,7 +18,7 @@ public class Test {
 	public static List<JLabel> slot2 = new ArrayList<JLabel>(3);
 	public static List<JLabel> slot3 = new ArrayList<JLabel>(3);
 	public static List<Image> images = new ArrayList<Image>(8);
-	private static JLabel label;
+//	private static JLabel label;
 	
 	/**
 	 * Launch the application.
@@ -190,7 +181,6 @@ public class Test {
 					try {
 						spin();
 					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
@@ -393,6 +383,7 @@ class Spin implements Runnable
 		boolean slot1Stop = false;
 		boolean slot2Stop = false;
 		boolean slot3Stop = false;
+		int sleepTime = 150;
 
 		//Roll up
 		while (!slot1Stop || !slot2Stop || !slot3Stop)
@@ -400,7 +391,20 @@ class Spin implements Runnable
 			int temp1 = rand.nextInt(7);
 			int temp2 = rand.nextInt(7);
 			int temp3 = rand.nextInt(7);
+//			while (temp1 == Test.board[0][0] || temp1 == Test.board[0][1])
+//			{
+//				temp1 = rand.nextInt(7);
+//			}
+//			while (temp2 == Test.board[1][0] || temp1 == Test.board[1][1])
+//			{
+//				temp2 = rand.nextInt(7);
+//			}
 
+//			while (temp3 == Test.board[2][0] || temp1 == Test.board[2][1])
+//			{
+//				temp3 = rand.nextInt(7);
+//			}
+				
 			if (!slot1Stop)
 			{
 				replace(Test.slot1.get(0), Test.board[0][1]);
@@ -425,20 +429,21 @@ class Spin implements Runnable
 			if (Test.board[0][1] == slot1Res)
 			{
 				slot1Stop = true;
+				sleepTime = 125;
 			}
 			if (Test.board[1][1] == slot2Res && slot1Stop == true)
 			{
 				slot2Stop = true;
+				sleepTime = 150;
 			}
 			if (Test.board[2][1] == slot3Res && slot2Stop == true)
 			{
-				slot3Stop = true;
+				slot3Stop = rand.nextBoolean();
 			}
 
 			try {
-				Thread.sleep(150);
+				Thread.sleep(sleepTime);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			// TimeUnit.MILLISECONDS.sleep(100);
