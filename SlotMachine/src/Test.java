@@ -389,28 +389,6 @@ class Spin implements Runnable
 	
 	private void replace(JLabel label,int pic)
 	{
-		// Setup images that needed to be used.
-//		Image background = new ImageIcon(this.getClass().getResource("/NewNewSlotMachineBackground.jpg")).getImage();
-//		Image bio = new ImageIcon(this.getClass().getResource("/biology.png")).getImage();
-//		Image chem = new ImageIcon(this.getClass().getResource("/chemistry.png")).getImage();
-//		Image chinese = new ImageIcon(this.getClass().getResource("/chinese.png")).getImage();
-//		Image cs = new ImageIcon(this.getClass().getResource("/cs.png")).getImage();
-//		Image eng = new ImageIcon(this.getClass().getResource("/english.png")).getImage();
-//		Image his = new ImageIcon(this.getClass().getResource("/history.png")).getImage();
-//		Image math = new ImageIcon(this.getClass().getResource("/maths.png")).getImage();
-//		Image physics = new ImageIcon(this.getClass().getResource("/physics.png")).getImage();
-//		
-		//Add images into list. 
-//		Test.images.add(background);
-//		Test.images.add(bio);
-//		Test.images.add(chem);
-//		Test.images.add(chinese);
-//		Test.images.add(cs);
-//		Test.images.add(eng);
-//		Test.images.add(his);
-//		Test.images.add(math);
-//		Test.images.add(physics);
-//		
 		label.setIcon(new ImageIcon(Test.images.get(pic)));
 	}
 
