@@ -66,20 +66,20 @@ public class Test {
 		frmSlotMachine.getContentPane().setLayout(null);
 		
 		//The following 3 lines is for full screen. 
-//		frmSlotMachine.setExtendedState(JFrame.MAXIMIZED_BOTH);
-//		frmSlotMachine.setUndecorated(true);
-//		frmSlotMachine.setVisible(true);
+		frmSlotMachine.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frmSlotMachine.setUndecorated(true);
+		frmSlotMachine.setVisible(true);
 		
 		// Setup images that needed to be used.
-		Image background = new ImageIcon(this.getClass().getResource("/NewNewSlotMachineBackground.jpg")).getImage();
-		Image img0 = new ImageIcon(this.getClass().getResource("/0.png")).getImage();
-		Image img1 = new ImageIcon(this.getClass().getResource("/1.png")).getImage();
-		Image img2 = new ImageIcon(this.getClass().getResource("/2.png")).getImage();
-		Image img3 = new ImageIcon(this.getClass().getResource("/3.png")).getImage();
-		Image img4 = new ImageIcon(this.getClass().getResource("/4.png")).getImage();
-		Image img5 = new ImageIcon(this.getClass().getResource("/5.png")).getImage();
-		Image img6 = new ImageIcon(this.getClass().getResource("/6.png")).getImage();
-//		Image img7 = new ImageIcon(this.getClass().getResource("/7.png")).getImage();
+		Image background = new ImageIcon(this.getClass().getResource("./NewNewSlotMachineBackground.jpg")).getImage();
+		Image img0 = new ImageIcon(this.getClass().getResource("./0.png")).getImage();
+		Image img1 = new ImageIcon(this.getClass().getResource("./1.png")).getImage();
+		Image img2 = new ImageIcon(this.getClass().getResource("./2.png")).getImage();
+		Image img3 = new ImageIcon(this.getClass().getResource("./3.png")).getImage();
+		Image img4 = new ImageIcon(this.getClass().getResource("./4.png")).getImage();
+		Image img5 = new ImageIcon(this.getClass().getResource("./5.png")).getImage();
+		Image img6 = new ImageIcon(this.getClass().getResource("./6.png")).getImage();
+//		Image img7 = new ImageIcon(this.getClass().getResource("./7.png")).getImage();
 
 		//Add images into list. 
 //		images.add(background);
@@ -180,7 +180,7 @@ public class Test {
 		label_8.setIcon(new ImageIcon(images.get(1)));
 		label_8.setBounds(1013, 458, 128, 128);
 		frmSlotMachine.getContentPane().add(label_8);
-		Image bt = new ImageIcon(this.getClass().getResource("/button.png")).getImage();
+		Image bt = new ImageIcon(this.getClass().getResource("./button.png")).getImage();
 		
 		
 		//Random rand = new Random();
