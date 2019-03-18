@@ -21,7 +21,7 @@ public class Test {
 	public static List<JLabel> slot2 = new ArrayList<JLabel>(3);
 	public static List<JLabel> slot3 = new ArrayList<JLabel>(3);
 	public static List<Image> images = new ArrayList<Image>(8);
-	public JLabel lblHitTheButton;
+	public static JLabel lblHitTheButton;
 //	private static JLabel label;
 	
 	/**
@@ -197,6 +197,7 @@ public class Test {
 //					replace(label, 1);
 					System.out.println("Key pressed! ");
 					try {
+						visibilityOfHitTheButton(false);
 						spin();
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
@@ -259,13 +260,18 @@ public class Test {
 			slot3Res = rand.nextInt(7);
 		}
 		
-		Thread t1 = new Thread(new Spin(board,slot1Res,slot2Res,slot3Res));
+		Thread t1 = new Thread(new Spin(board, slot1Res, slot2Res, slot3Res, resultType));
 		t1.start();
 	}
 	
 	public void changeHitButtonLabelFont(int size)
 	{
 		lblHitTheButton.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, size));
+	}
+	
+	public static void visibilityOfHitTheButton(boolean visibility)
+	{
+		lblHitTheButton.setVisible(visibility);
 	}
 }
 
@@ -274,8 +280,9 @@ class Spin implements Runnable
 	private int slot1Res;
 	private int slot2Res;
 	private int slot3Res;
+	private int resultType;
 	
-	public Spin(int[][] b,int slt1Res,int slt2Res,int slt3Res)
+	public Spin(int[][] b,int slt1Res,int slt2Res,int slt3Res, int rstType)
 	{
 //		board[0][0] = 0;
 //		board[0][1] = 1;
@@ -289,7 +296,7 @@ class Spin implements Runnable
 		slot1Res = slt1Res;
 		slot2Res = slt2Res;
 		slot3Res = slt3Res;
-		
+		resultType = rstType;
 	}
 
 	public void run()
@@ -353,7 +360,9 @@ class Spin implements Runnable
 			if (slot3Stop == false && Test.board[2][1] == slot3Res && slot2Stop == true)
 			{
 				if (rand.nextInt(10)<=7)
+				{
 					slot3Stop = rand.nextBoolean();
+				}
 			}
 
 			try {
@@ -363,6 +372,9 @@ class Spin implements Runnable
 			}
 
 		}
+		//All slots stopped
+		Test.visibilityOfHitTheButton(true);
+		//Show congrates message. 
 	}
 
 	private void updateboard(int new1,int new2,int new3,boolean slot1,boolean slot2,boolean slot3)
