@@ -22,6 +22,8 @@ public class Test {
 	public static List<JLabel> slot3 = new ArrayList<JLabel>(3);
 	public static List<Image> images = new ArrayList<Image>(8);
 	public static JLabel lblHitTheButton;
+	public static boolean buttonAvailable;
+	public static JLabel lblCongratesText;
 //	private static JLabel label;
 	
 	/**
@@ -65,6 +67,8 @@ public class Test {
 		frmSlotMachine.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSlotMachine.getContentPane().setLayout(null);
 		
+		buttonAvailable =true;	//Make the button available. 
+		
 		//The following 3 lines is for full screen. 
 		frmSlotMachine.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frmSlotMachine.setUndecorated(true);
@@ -92,18 +96,6 @@ public class Test {
 		images.add(img6);
 //		images.add(img7);
 		
-		/*
-		String[] picNames = new String[8];//The equivalent number of the picture. 
-		picNames[0] = "bio";
-		picNames[1] = "chem";
-		picNames[2] = "chinese";
-		picNames[3] = "cs";
-		picNames[4] = "eng";
-		picNames[5] = "his";
-		picNames[6] = "math";
-		picNames[7] = "physics";
-		*/
-		
 		//Put initial state of each slot into 2D array "board", so that "replace()" can get the present state of the slots. 
 		//board[vertical slot][position in vertical slot]
 		board[0][0] = 0;
@@ -115,6 +107,15 @@ public class Test {
 		board[2][0] = 6;
 		board[2][1] = 2;
 		board[2][2] = 1;
+		
+		lblCongratesText = new JLabel("Congrates text");
+		lblCongratesText.setBackground(new Color(192, 192, 192));
+		lblCongratesText.setForeground(new Color(255, 255, 255));
+		lblCongratesText.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCongratesText.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 99));
+		lblCongratesText.setBounds(0, 299, 1366, 128);
+		lblCongratesText.setVisible(false);
+		frmSlotMachine.getContentPane().add(lblCongratesText);
 		
 		lblHitTheButton = new JLabel("Hit The Button!");
 		lblHitTheButton.setHorizontalAlignment(SwingConstants.CENTER);
@@ -197,8 +198,11 @@ public class Test {
 //					replace(label, 1);
 					System.out.println("Key pressed! ");
 					try {
-						visibilityOfHitTheButton(false);
-						spin();
+						if (buttonAvailable)
+						{
+							visibilityOfHitTheButton(false);
+							spin();
+						}
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
 					}
@@ -227,17 +231,17 @@ public class Test {
 		
 		//Decide result type (All 3 same/2 are same/all different)
 		resultType = rand.nextInt(10);
-		if (resultType <= 1)
+		if (resultType == 1)
 		{
-			resultType = 0;//All same. 20%
+			resultType = 0;//All same. 10%
 		}
-		else if (resultType <= 5)
+		else if (resultType <= 7)
 		{
-			resultType = 1;//2 same. 40%
+			resultType = 1;//2 same. 50%
 		}
 		else
 		{
-			resultType = 2;//All diff. 40%
+			resultType = 2;//All diff. 20%
 		}
 
 		slot1Res = rand.nextInt(7);//slot 1 result
@@ -272,6 +276,13 @@ public class Test {
 	public static void visibilityOfHitTheButton(boolean visibility)
 	{
 		lblHitTheButton.setVisible(visibility);
+		buttonAvailable = visibility;
+	}
+	
+	public static void changeStatusOfCongratesText(boolean visibility, String text)
+	{
+		lblCongratesText.setText(text);
+		lblCongratesText.setVisible(visibility);
 	}
 }
 
@@ -305,6 +316,7 @@ class Spin implements Runnable
 		boolean slot1Stop = false;
 		boolean slot2Stop = false;
 		boolean slot3Stop = false;
+		int spinCount = 0;	//If spin count is too small, keep spinning. 
 
 		//Roll up
 		while (!slot1Stop || !slot2Stop || !slot3Stop)
@@ -346,27 +358,35 @@ class Spin implements Runnable
 			}
 			
 			updateboard(temp1, temp2, temp3, slot1Stop, slot2Stop, slot3Stop);
+			spinCount++;
 
 			if (slot1Stop == false && Test.board[0][1] == slot1Res)
 			{
-				if (rand.nextInt(10)<=8)
+				if (rand.nextInt(10)<=8 && spinCount>5)
+				{
 					slot1Stop = true;
+					spinCount = 0;
+				}
 			}
 			if (slot2Stop == false && Test.board[1][1] == slot2Res && slot1Stop == true)
 			{
-				if (rand.nextInt(10)<=9)
+				if (rand.nextInt(10)<=9 && spinCount>8)
+				{
 					slot2Stop = true;
+					spinCount = 0;
+				}
 			}
 			if (slot3Stop == false && Test.board[2][1] == slot3Res && slot2Stop == true)
 			{
-				if (rand.nextInt(10)<=7)
+				if (rand.nextInt(10)<=7 && spinCount>10)
 				{
-					slot3Stop = rand.nextBoolean();
+					slot3Stop = true;
+					spinCount = 0;
 				}
 			}
 
 			try {
-				Thread.sleep(150);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
