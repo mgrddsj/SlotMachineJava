@@ -23,7 +23,7 @@ public class Test {
 	public static List<Image> images = new ArrayList<Image>(8);
 	public static JLabel lblHitTheButton;
 	public static boolean buttonAvailable;
-	public static JLabel lblCongratesText;
+//	public static JLabel lblCongratesText;
 //	private static JLabel label;
 	
 	/**
@@ -108,14 +108,14 @@ public class Test {
 		board[2][1] = 2;
 		board[2][2] = 1;
 		
-		lblCongratesText = new JLabel("Congrates text");
-		lblCongratesText.setBackground(new Color(192, 192, 192));
-		lblCongratesText.setForeground(new Color(255, 255, 255));
-		lblCongratesText.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCongratesText.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 99));
-		lblCongratesText.setBounds(0, 299, 1366, 128);
-		lblCongratesText.setVisible(false);
-		frmSlotMachine.getContentPane().add(lblCongratesText);
+//		lblCongratesText = new JLabel("Congrates text");
+//		lblCongratesText.setBackground(new Color(192, 192, 192));
+//		lblCongratesText.setForeground(new Color(255, 255, 255));
+//		lblCongratesText.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblCongratesText.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 99));
+//		lblCongratesText.setBounds(0, 299, 1366, 128);
+//		lblCongratesText.setVisible(false);
+//		frmSlotMachine.getContentPane().add(lblCongratesText);
 		
 		lblHitTheButton = new JLabel("Hit The Button!");
 		lblHitTheButton.setHorizontalAlignment(SwingConstants.CENTER);
@@ -230,18 +230,18 @@ public class Test {
 		int slot3Res;
 		
 		//Decide result type (All 3 same/2 are same/all different)
-		resultType = rand.nextInt(10);
-		if (resultType == 1)
+		resultType = rand.nextInt(100);
+		if (resultType < 30)
 		{
 			resultType = 0;//All same. 10%
 		}
-		else if (resultType <= 7)
+		else if (resultType <= 70)
 		{
-			resultType = 1;//2 same. 50%
+			resultType = 1;//2 same. 70%
 		}
 		else
 		{
-			resultType = 2;//All diff. 20%
+			resultType = 2;//All diff. 25%
 		}
 
 		slot1Res = rand.nextInt(7);//slot 1 result
@@ -279,11 +279,11 @@ public class Test {
 		buttonAvailable = visibility;
 	}
 	
-	public static void changeStatusOfCongratesText(boolean visibility, String text)
-	{
-		lblCongratesText.setText(text);
-		lblCongratesText.setVisible(visibility);
-	}
+//	public static void changeStatusOfCongratesText(boolean visibility, String text)
+//	{
+//		lblCongratesText.setText(text);
+//		lblCongratesText.setVisible(visibility);
+//	}
 }
 
 class Spin implements Runnable
